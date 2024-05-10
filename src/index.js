@@ -62,11 +62,17 @@ function Menu() {
     <div className="menu">
       <h2>Our menu</h2>
       {numpizza > 0 ? (
-        <ul className="pizzas">
-          {Pizzas.map((pizza) => (
-            <Pizza pizzaobj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        <React.Fragment>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic and delicious.
+          </p>
+          <ul className="pizzas">
+            {Pizzas.map((pizza) => (
+              <Pizza pizzaobj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </React.Fragment>
       ) : (
         <p>We are currently working on the menu</p>
       )}
@@ -75,14 +81,13 @@ function Menu() {
 }
 
 function Pizza({ pizzaobj }) {
-  if (pizzaobj.soldOut) return null;
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizzaobj.soldOut ? "sold-out" : ""}`}>
       <img src={pizzaobj.photoName} alt={pizzaobj.name} />
       <div>
         <h3>{pizzaobj.name}</h3>
         <p>{pizzaobj.ingredients}</p>
-        <span>{pizzaobj.price}</span>
+        <span>{pizzaobj.soldOut ? "SOLD OUT" : pizzaobj.price}</span>
       </div>
     </li>
   );
